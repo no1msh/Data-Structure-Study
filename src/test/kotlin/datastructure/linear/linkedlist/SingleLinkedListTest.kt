@@ -96,7 +96,7 @@ class SingleLinkedListTest {
     }
 
     @Test
-    fun `검색한 하려는 단일 연결 리스트의 헤드가 null이라면 null을 반환한다`() {
+    fun `검색하려는 단일 연결 리스트의 헤드가 null이라면 null을 반환한다`() {
         // given
         val singleLinkedList = SingleLinkedList<Int>()
 
@@ -123,5 +123,45 @@ class SingleLinkedListTest {
 
         // then
         assertThat(searchedNode).isNull()
+    }
+
+    @Test
+    fun `단일 연결 리스트가 가진 노드 중 원하는 데이터를 가진 노드의 포인터에 노드를 추가할 수 있다`() {
+        // given
+        val singleLinkedList = SingleLinkedList<Int>()
+        val node1 = Node(1, null)
+        val node2 = Node(2, null)
+        val node3 = Node(3, null)
+        singleLinkedList.add(node1)
+        singleLinkedList.add(node2)
+        singleLinkedList.add(node3)
+
+        val newNode = Node(4, null)
+
+        // when
+        singleLinkedList.addNodeByValue(2, newNode)
+
+        // then
+        assertThat(singleLinkedList.searchByData(2)?.pointer).isEqualTo(newNode)
+    }
+
+    @Test
+    fun `단일 연결 리스트가 가진 노드 중 원하는 노드를 검색하여 없다면 제일 뒤에 새 노드를 추가한다`() {
+        // given
+        val singleLinkedList = SingleLinkedList<Int>()
+        val node1 = Node(1, null)
+        val node2 = Node(2, null)
+        val node3 = Node(3, null)
+        singleLinkedList.add(node1)
+        singleLinkedList.add(node2)
+        singleLinkedList.add(node3)
+
+        val newNode = Node(4, null)
+
+        // when
+        singleLinkedList.addNodeByValue(5, newNode)
+
+        // then
+        assertThat(singleLinkedList.searchByData(3)?.pointer).isEqualTo(newNode)
     }
 }

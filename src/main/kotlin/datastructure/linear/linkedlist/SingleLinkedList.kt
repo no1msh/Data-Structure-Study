@@ -49,6 +49,26 @@ class SingleLinkedList<T> {
         return stringBuilder.toString()
     }
 
+    fun addNodeByValue(data: T, newNode: Node<T>) {
+        if (head == null) return
+
+        val searchedNode: Node<T>? = searchByData(data)
+
+        if(searchedNode == null){
+            add(newNode)
+            return
+        }
+
+        if (searchedNode.pointer == null) {
+            searchedNode.pointer = newNode
+            return
+        }
+
+        val tempNode = searchedNode.pointer
+        searchedNode.pointer = newNode
+        newNode.pointer = tempNode
+    }
+
     companion object {
         private const val PREFIX = "[ "
         private const val INFIX = " ]"
