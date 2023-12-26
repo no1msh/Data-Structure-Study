@@ -17,4 +17,29 @@ class SingleLinkedList<T> {
 
         lastNode.pointer = newNode
     }
+
+    override fun toString(): String {
+        if (head == null) return ""
+
+        val stringBuilder = StringBuilder()
+        stringBuilder.append(PREFIX)
+        var node = head
+
+        while (node != null) {
+            stringBuilder.append(node.data).append(SEPARATOR)
+            node = node.pointer
+        }
+
+        stringBuilder.setLength(stringBuilder.lastIndex - LAST_SEPARATOR_SIZE)
+        stringBuilder.append(INFIX)
+
+        return stringBuilder.toString()
+    }
+
+    companion object {
+        private const val PREFIX = "[ "
+        private const val INFIX = " ]"
+        private const val SEPARATOR = " -> "
+        private const val LAST_SEPARATOR_SIZE = 3
+    }
 }

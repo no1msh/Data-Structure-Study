@@ -44,4 +44,36 @@ class SingleLinkedListTest {
         // then
         assertThat(singleLinkedList.head!!.pointer).isEqualTo(newNode)
     }
+
+    @Test
+    fun `단일 연결 리스트가 가진 모든 데이터를 문자열로 표현할 수 있다`() {
+        // given
+        val singleLinkedList = SingleLinkedList<Int>()
+        val node1 = Node(1, null)
+        val node2 = Node(2, null)
+        val node3 = Node(3, null)
+        singleLinkedList.add(node1)
+        singleLinkedList.add(node2)
+        singleLinkedList.add(node3)
+
+        // when
+        val expect = singleLinkedList.toString()
+
+        // then
+        assertThat(expect).isEqualTo("[ 1 -> 2 -> 3 ]")
+    }
+
+    @Test
+    fun `단일 연결 리스트가 가진 데이터가 하나여도 표시 형식을 맞추어 String으로 변환된다`() {
+        // given
+        val singleLinkedList = SingleLinkedList<Int>()
+        val node1 = Node(1, null)
+        singleLinkedList.add(node1)
+
+        // when
+        val expect = singleLinkedList.toString()
+
+        // then
+        assertThat(expect).isEqualTo("[ 1 ]")
+    }
 }
