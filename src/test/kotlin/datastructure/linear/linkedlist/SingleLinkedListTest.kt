@@ -76,4 +76,52 @@ class SingleLinkedListTest {
         // then
         assertThat(expect).isEqualTo("[ 1 ]")
     }
+
+    @Test
+    fun `단일 연결 리스트가 가진 노드를 검색해서 인자로 받은 데이터를 가진 노드를 반환받을 수 있다`() {
+        // given
+        val singleLinkedList = SingleLinkedList<Int>()
+        val node1 = Node(1, null)
+        val targetNode = Node(2, null)
+        val node3 = Node(3, null)
+        singleLinkedList.add(node1)
+        singleLinkedList.add(targetNode)
+        singleLinkedList.add(node3)
+
+        // when
+        val searchedNode: Node<Int>? = singleLinkedList.searchByData(2)
+
+        // then
+        assertThat(searchedNode).isEqualTo(targetNode)
+    }
+
+    @Test
+    fun `검색한 하려는 단일 연결 리스트의 헤드가 null이라면 null을 반환한다`() {
+        // given
+        val singleLinkedList = SingleLinkedList<Int>()
+
+        // when
+        val searchedNode: Node<Int>? = singleLinkedList.searchByData(1)
+
+        // then
+        assertThat(searchedNode).isNull()
+    }
+
+    @Test
+    fun `검색하려는 노드가 단일 연결 리스트에 없다면 null을 반환한다`() {
+        // given
+        val singleLinkedList = SingleLinkedList<Int>()
+        val node1 = Node(1, null)
+        val node2 = Node(2, null)
+        val node3 = Node(3, null)
+        singleLinkedList.add(node1)
+        singleLinkedList.add(node2)
+        singleLinkedList.add(node3)
+
+        // when
+        val searchedNode: Node<Int>? = singleLinkedList.searchByData(4)
+
+        // then
+        assertThat(searchedNode).isNull()
+    }
 }

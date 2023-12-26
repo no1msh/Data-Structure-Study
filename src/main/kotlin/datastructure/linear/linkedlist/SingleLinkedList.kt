@@ -18,6 +18,19 @@ class SingleLinkedList<T> {
         lastNode.pointer = newNode
     }
 
+    fun searchByData(targetData: T): Node<T>? {
+        if (head == null) return null
+
+        var node = head
+        while (node!!.pointer != null) {
+            if (node.data == targetData) {
+                return node
+            }
+            node = node.pointer
+        }
+        return null
+    }
+
     override fun toString(): String {
         if (head == null) return ""
 
