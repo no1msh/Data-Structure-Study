@@ -2,6 +2,7 @@ package datastructure.linear.linkedlist
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 
 class SingleLinkedListTest {
     @Test
@@ -31,7 +32,7 @@ class SingleLinkedListTest {
     }
 
     @Test
-    fun `노드를 추가할 때 헤드에 이미 값이 있으면 헤드가 가리키는 다음 자리에 노드를 추가한다`() {
+    fun `노드를 추가할 때 헤드에 이미 값이 있으면 제일 마지막 노드의 포인터에 노드를 추가한다`() {
         // given
         val singleLinkedList = SingleLinkedList<Int>()
         val headNode = Node(1, null)
@@ -163,5 +164,77 @@ class SingleLinkedListTest {
 
         // then
         assertThat(singleLinkedList.searchByData(3)?.pointer).isEqualTo(newNode)
+    }
+
+    @Test
+    fun `단일 연결 리스트가 가진 노드를 삭제할 수 있다`() {
+        // given
+        val singleLinkedList = SingleLinkedList<Int>()
+        val node1 = Node(1, null)
+        val node2 = Node(2, null)
+        val node3 = Node(3, null)
+        singleLinkedList.add(node1)
+        singleLinkedList.add(node2)
+        singleLinkedList.add(node3)
+
+        // when
+        singleLinkedList.remove(2)
+
+        // then
+        assertThat(singleLinkedList.searchByData(1)?.pointer).isEqualTo(node3)
+    }
+
+    @Test
+    fun `단일 연결 리스트의 헤드에 삭제하고 싶은 노드가 있을 경우도 정상적으로 노드가 삭제된다`() {
+        // given
+        val singleLinkedList = SingleLinkedList<Int>()
+        val node1 = Node(1, null)
+        val node2 = Node(2, null)
+        val node3 = Node(3, null)
+        singleLinkedList.add(node1)
+        singleLinkedList.add(node2)
+        singleLinkedList.add(node3)
+
+        // when
+        singleLinkedList.remove(1)
+
+        // then
+        assertThat(singleLinkedList.head).isEqualTo(node2)
+    }
+
+    @Test
+    fun `단일 연결 리스트의 맨 마지막 노드에 삭제하고 싶은 노드가 있을 경우도 정상적으로 노드가 삭제된다`() {
+        // given
+        val singleLinkedList = SingleLinkedList<Int>()
+        val node1 = Node(1, null)
+        val node2 = Node(2, null)
+        val node3 = Node(3, null)
+        singleLinkedList.add(node1)
+        singleLinkedList.add(node2)
+        singleLinkedList.add(node3)
+
+        // when
+        singleLinkedList.remove(3)
+
+        // then
+        assertThat(singleLinkedList.searchByData(node2.data)?.pointer).isNull()
+        print(singleLinkedList)
+    }
+
+    @Test
+    fun `단일 연결 리스트에 삭제하고 싶은 데이터가 없을 경우에도 예외처리 되지않는다`() {
+        // given
+        val singleLinkedList = SingleLinkedList<Int>()
+        val node1 = Node(1, null)
+        val node2 = Node(2, null)
+        val node3 = Node(3, null)
+        singleLinkedList.add(node1)
+        singleLinkedList.add(node2)
+        singleLinkedList.add(node3)
+
+        // when
+
+        // then
+        assertDoesNotThrow { singleLinkedList.remove(4) }
     }
 }

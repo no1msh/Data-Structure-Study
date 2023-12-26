@@ -54,7 +54,7 @@ class SingleLinkedList<T> {
 
         val searchedNode: Node<T>? = searchByData(data)
 
-        if(searchedNode == null){
+        if (searchedNode == null) {
             add(newNode)
             return
         }
@@ -67,6 +67,24 @@ class SingleLinkedList<T> {
         val tempNode = searchedNode.pointer
         searchedNode.pointer = newNode
         newNode.pointer = tempNode
+    }
+
+    fun remove(targetData: T) {
+        if (head == null) return
+
+        if (head!!.data == targetData) {
+            head = head!!.pointer
+            return
+        }
+
+        var node: Node<T>? = head ?: return
+
+        while (node?.pointer != null) {
+            if (node.pointer!!.data == targetData) {
+                node.pointer = node.pointer!!.pointer
+            }
+            node = node.pointer
+        }
     }
 
     companion object {
