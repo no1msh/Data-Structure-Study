@@ -39,12 +39,12 @@ class SingleLinkedList<T> {
         var node = head
 
         while (node != null) {
-            stringBuilder.append(node.data).append(SEPARATOR)
+            stringBuilder.append(node.data).append(INFIX)
             node = node.pointer
         }
 
         stringBuilder.setLength(stringBuilder.lastIndex - LAST_SEPARATOR_SIZE)
-        stringBuilder.append(INFIX)
+        stringBuilder.append(POSTFIX)
 
         return stringBuilder.toString()
     }
@@ -89,8 +89,8 @@ class SingleLinkedList<T> {
 
     companion object {
         private const val PREFIX = "[ "
-        private const val INFIX = " ]"
-        private const val SEPARATOR = " -> "
+        private const val POSTFIX = " ]"
+        private const val INFIX = " -> "
         private const val LAST_SEPARATOR_SIZE = 3
     }
 }
