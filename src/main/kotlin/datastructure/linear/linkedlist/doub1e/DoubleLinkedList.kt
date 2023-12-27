@@ -22,4 +22,31 @@ class DoubleLinkedList<T> {
         node.next = newNode
         tail = newNode
     }
+
+    override fun toString(): String {
+        if (head == null) {
+            return EMPTY_DATA_FORMAT
+        }
+
+        val stringBuilder = StringBuilder().append(PREFIX)
+
+        var node = head
+        while (node != null) {
+            stringBuilder.append(node.data).append(INFIX)
+            node = node.next
+        }
+
+        stringBuilder.setLength(stringBuilder.lastIndex - INFIX_SIZE)
+        stringBuilder.append(POSTFIX)
+
+        return stringBuilder.toString()
+    }
+
+    companion object {
+        private const val EMPTY_DATA_FORMAT = "[]"
+        private const val PREFIX = "[ "
+        private const val POSTFIX = " ]"
+        private const val INFIX = " <-> "
+        private const val INFIX_SIZE = 4
+    }
 }

@@ -56,4 +56,44 @@ class DoubleLinkedListTest {
         // then
         assertThat(doubleLinkedList.tail!!.data).isEqualTo(newData)
     }
+
+    @Test
+    fun `더블 링크드 리스트가 가진 모든 데이터를 문자열로 표현할 수 있다`() {
+        // given
+        val doubleLinkedList = DoubleLinkedList<Int>()
+        doubleLinkedList.add(1)
+        doubleLinkedList.add(2)
+        doubleLinkedList.add(3)
+
+        // when
+        val expect = doubleLinkedList.toString()
+
+        // then
+        assertThat(expect).isEqualTo("[ 1 <-> 2 <-> 3 ]")
+    }
+
+    @Test
+    fun `더블 링크드 리스트가 가진 데이터가 없다면 빈 모양을 문자열로 반환한다`() {
+        // given
+        val doubleLinkedList = DoubleLinkedList<Int>()
+
+        // when
+        val expect = doubleLinkedList.toString()
+
+        // then
+        assertThat(expect).isEqualTo("[]")
+    }
+
+    @Test
+    fun `더블 링크드 리스트가 가진 노드가 하나여도 표시형식에 맞추어 출력된다`() {
+        // given
+        val doubleLinkedList = DoubleLinkedList<Int>()
+        doubleLinkedList.add(1)
+
+        // when
+        val expect = doubleLinkedList.toString()
+
+        // then
+        assertThat(expect).isEqualTo("[ 1 ]")
+    }
 }
