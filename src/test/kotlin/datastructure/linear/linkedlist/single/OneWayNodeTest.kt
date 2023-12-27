@@ -26,10 +26,10 @@ class OneWayNodeTest {
         val nextNode = OneWayNode(2, null)
 
         // when
-        headNode.pointer = nextNode
+        headNode.next = nextNode
 
         // then
-        assertThat(headNode.pointer).isEqualTo(nextNode)
+        assertThat(headNode.next).isEqualTo(nextNode)
     }
 
     @Test
@@ -40,6 +40,6 @@ class OneWayNodeTest {
         // when
 
         // then
-        assertThat(node.pointer).isNull()
+        assertThat(node.next).isNull()
     }
 }

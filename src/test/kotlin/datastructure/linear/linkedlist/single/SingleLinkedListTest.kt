@@ -43,7 +43,7 @@ class SingleLinkedListTest {
         singleLinkedList.add(newNode)
 
         // then
-        assertThat(singleLinkedList.head!!.pointer).isEqualTo(newNode)
+        assertThat(singleLinkedList.head!!.next).isEqualTo(newNode)
     }
 
     @Test
@@ -143,7 +143,7 @@ class SingleLinkedListTest {
         singleLinkedList.addNodeByValue(2, newNode)
 
         // then
-        assertThat(singleLinkedList.searchByData(2)?.pointer).isEqualTo(newNode)
+        assertThat(singleLinkedList.searchByData(2)?.next).isEqualTo(newNode)
     }
 
     @Test
@@ -163,7 +163,7 @@ class SingleLinkedListTest {
         singleLinkedList.addNodeByValue(5, newNode)
 
         // then
-        assertThat(singleLinkedList.searchByData(3)?.pointer).isEqualTo(newNode)
+        assertThat(singleLinkedList.searchByData(3)?.next).isEqualTo(newNode)
     }
 
     @Test
@@ -181,7 +181,7 @@ class SingleLinkedListTest {
         singleLinkedList.remove(2)
 
         // then
-        assertThat(singleLinkedList.searchByData(1)?.pointer).isEqualTo(node3)
+        assertThat(singleLinkedList.searchByData(1)?.next).isEqualTo(node3)
     }
 
     @Test
@@ -217,7 +217,7 @@ class SingleLinkedListTest {
         singleLinkedList.remove(3)
 
         // then
-        assertThat(singleLinkedList.searchByData(node2.data)?.pointer).isNull()
+        assertThat(singleLinkedList.searchByData(node2.data)?.next).isNull()
         print(singleLinkedList)
     }
 

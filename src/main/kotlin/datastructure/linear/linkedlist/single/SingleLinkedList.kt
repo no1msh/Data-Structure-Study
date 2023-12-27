@@ -11,22 +11,22 @@ class SingleLinkedList<T> {
 
         var lastNode: OneWayNode<T> = head!!
 
-        while (lastNode.pointer != null) {
-            lastNode = lastNode.pointer!!
+        while (lastNode.next != null) {
+            lastNode = lastNode.next!!
         }
 
-        lastNode.pointer = newNode
+        lastNode.next = newNode
     }
 
     fun searchByData(targetData: T): OneWayNode<T>? {
         if (head == null) return null
 
         var node = head
-        while (node!!.pointer != null) {
+        while (node!!.next != null) {
             if (node.data == targetData) {
                 return node
             }
-            node = node.pointer
+            node = node.next
         }
         return null
     }
@@ -40,7 +40,7 @@ class SingleLinkedList<T> {
 
         while (node != null) {
             stringBuilder.append(node.data).append(INFIX)
-            node = node.pointer
+            node = node.next
         }
 
         stringBuilder.setLength(stringBuilder.lastIndex - LAST_SEPARATOR_SIZE)
@@ -59,31 +59,31 @@ class SingleLinkedList<T> {
             return
         }
 
-        if (searchedNode.pointer == null) {
-            searchedNode.pointer = newNode
+        if (searchedNode.next == null) {
+            searchedNode.next = newNode
             return
         }
 
-        val tempNode = searchedNode.pointer
-        searchedNode.pointer = newNode
-        newNode.pointer = tempNode
+        val tempNode = searchedNode.next
+        searchedNode.next = newNode
+        newNode.next = tempNode
     }
 
     fun remove(targetData: T) {
         if (head == null) return
 
         if (head!!.data == targetData) {
-            head = head!!.pointer
+            head = head!!.next
             return
         }
 
         var node: OneWayNode<T>? = head ?: return
 
-        while (node?.pointer != null) {
-            if (node.pointer!!.data == targetData) {
-                node.pointer = node.pointer!!.pointer
+        while (node?.next != null) {
+            if (node.next!!.data == targetData) {
+                node.next = node.next!!.next
             }
-            node = node.pointer
+            node = node.next
         }
     }
 
