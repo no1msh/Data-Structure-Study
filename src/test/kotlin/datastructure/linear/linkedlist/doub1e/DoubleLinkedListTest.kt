@@ -22,4 +22,38 @@ class DoubleLinkedListTest {
             { assertThat(doubleLinedList.tail).isEqualTo(tailNode) },
         )
     }
+
+    @Test
+    fun `더블 링크드 리스트에 값을 추가할 때 헤드가 null이라면 헤드와 테일에 노드를 추가한다`() {
+        // given
+        val doubleLinkedList = DoubleLinkedList<Int>()
+        val newData = 1
+
+        // when
+        doubleLinkedList.add(newData)
+
+        // then
+        assertAll(
+            { assertThat(doubleLinkedList.head!!.data).isEqualTo(newData) },
+            { assertThat(doubleLinkedList.tail!!.data).isEqualTo(newData) },
+        )
+    }
+
+    @Test
+    fun `더블 링크드 리스트에 값을 추가할 때 헤드와 테일이 이미 있다면 기존 테일에 값을 연결하여 추가한다`() {
+        // given
+        val doubleLinkedList = DoubleLinkedList<Int>()
+        val headNode = TwoWayNode(1)
+        val tailNode = TwoWayNode(2)
+        doubleLinkedList.head = headNode
+        doubleLinkedList.tail = tailNode
+
+        val newData = 3
+
+        // when
+        doubleLinkedList.add(newData)
+
+        // then
+        assertThat(doubleLinkedList.tail!!.data).isEqualTo(newData)
+    }
 }
