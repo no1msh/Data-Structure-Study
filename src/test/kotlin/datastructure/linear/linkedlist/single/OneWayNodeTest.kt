@@ -1,5 +1,6 @@
-package datastructure.linear.linkedlist
+package datastructure.linear.linkedlist.single
 
+import datastructure.linear.linkedlist.single.OneWayNode
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

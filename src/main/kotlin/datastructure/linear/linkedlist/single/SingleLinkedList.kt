@@ -1,4 +1,4 @@
-package datastructure.linear.linkedlist
+package datastructure.linear.linkedlist.single
 
 class SingleLinkedList<T> {
     var head: OneWayNode<T>? = null
