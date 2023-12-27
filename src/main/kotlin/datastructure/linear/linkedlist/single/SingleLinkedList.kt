@@ -32,7 +32,7 @@ class SingleLinkedList<T> {
     }
 
     override fun toString(): String {
-        if (head == null) return ""
+        if (head == null) return EMPTY_DATA_FORMAT
 
         val stringBuilder = StringBuilder()
         stringBuilder.append(PREFIX)
@@ -43,7 +43,7 @@ class SingleLinkedList<T> {
             node = node.next
         }
 
-        stringBuilder.setLength(stringBuilder.lastIndex - LAST_SEPARATOR_SIZE)
+        stringBuilder.setLength(stringBuilder.lastIndex - INFIX_SIZE)
         stringBuilder.append(POSTFIX)
 
         return stringBuilder.toString()
@@ -88,9 +88,10 @@ class SingleLinkedList<T> {
     }
 
     companion object {
+        private const val EMPTY_DATA_FORMAT = "[]"
         private const val PREFIX = "[ "
         private const val POSTFIX = " ]"
         private const val INFIX = " -> "
-        private const val LAST_SEPARATOR_SIZE = 3
+        private const val INFIX_SIZE = 3
     }
 }

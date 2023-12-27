@@ -65,6 +65,18 @@ class SingleLinkedListTest {
     }
 
     @Test
+    fun `단일 연결 리스트가 가진 데이터가 없어도 표시 형식을 맞추어 String으로 변환된다`() {
+        // given
+        val singleLinkedList = SingleLinkedList<Int>()
+
+        // when
+        val expect = singleLinkedList.toString()
+
+        // then
+        assertThat(expect).isEqualTo("[]")
+    }
+
+    @Test
     fun `단일 연결 리스트가 가진 데이터가 하나여도 표시 형식을 맞추어 String으로 변환된다`() {
         // given
         val singleLinkedList = SingleLinkedList<Int>()
