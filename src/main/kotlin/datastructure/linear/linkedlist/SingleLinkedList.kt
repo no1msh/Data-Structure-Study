@@ -1,15 +1,15 @@
 package datastructure.linear.linkedlist
 
 class SingleLinkedList<T> {
-    var head: Node<T>? = null
+    var head: OneWayNode<T>? = null
 
-    fun add(newNode: Node<T>) {
+    fun add(newNode: OneWayNode<T>) {
         if (head == null) {
             head = newNode
             return
         }
 
-        var lastNode: Node<T> = head!!
+        var lastNode: OneWayNode<T> = head!!
 
         while (lastNode.pointer != null) {
             lastNode = lastNode.pointer!!
@@ -18,7 +18,7 @@ class SingleLinkedList<T> {
         lastNode.pointer = newNode
     }
 
-    fun searchByData(targetData: T): Node<T>? {
+    fun searchByData(targetData: T): OneWayNode<T>? {
         if (head == null) return null
 
         var node = head
@@ -49,10 +49,10 @@ class SingleLinkedList<T> {
         return stringBuilder.toString()
     }
 
-    fun addNodeByValue(data: T, newNode: Node<T>) {
+    fun addNodeByValue(data: T, newNode: OneWayNode<T>) {
         if (head == null) return
 
-        val searchedNode: Node<T>? = searchByData(data)
+        val searchedNode: OneWayNode<T>? = searchByData(data)
 
         if (searchedNode == null) {
             add(newNode)
@@ -77,7 +77,7 @@ class SingleLinkedList<T> {
             return
         }
 
-        var node: Node<T>? = head ?: return
+        var node: OneWayNode<T>? = head ?: return
 
         while (node?.pointer != null) {
             if (node.pointer!!.data == targetData) {
