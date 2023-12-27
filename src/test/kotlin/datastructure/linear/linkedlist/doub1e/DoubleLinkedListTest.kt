@@ -96,4 +96,50 @@ class DoubleLinkedListTest {
         // then
         assertThat(expect).isEqualTo("[ 1 ]")
     }
+
+    @Test
+    fun `더블 링크드 리스트는 헤드부터 데이터를 찾을 수 있다`() {
+        // given
+        val doubleLinkedList = DoubleLinkedList<Int>()
+        doubleLinkedList.add(1)
+        doubleLinkedList.add(2)
+        doubleLinkedList.add(3)
+
+        // when
+        val searchedNode: TwoWayNode<Int>? = doubleLinkedList.searchFromHead(3)
+
+        // then
+        assertThat(searchedNode!!).isEqualTo(doubleLinkedList.tail!!)
+    }
+
+    @Test
+    fun `더블 링크드 리스트는 테일부터 데이터를 찾을 수 있다`() {
+        // given
+        val doubleLinkedList = DoubleLinkedList<Int>()
+        doubleLinkedList.add(1)
+        doubleLinkedList.add(2)
+        doubleLinkedList.add(3)
+
+        // when
+        val searchedNode: TwoWayNode<Int>? = doubleLinkedList.searchFromTail(1)
+
+        // then
+        assertThat(searchedNode!!).isEqualTo(doubleLinkedList.head!!)
+    }
+
+    @Test
+    fun `더블 링크드 리스트에서 검색을 할 때 찾는 데이터가 존재하지 않는다면 null을 반환한다`() {
+        // given
+        val doubleLinkedList = DoubleLinkedList<Int>()
+
+        // when
+        val searchedNodeFromHead: TwoWayNode<Int>? = doubleLinkedList.searchFromHead(3)
+        val searchedNodeFromTail: TwoWayNode<Int>? = doubleLinkedList.searchFromTail(3)
+
+        // then
+        assertAll(
+            { assertThat(searchedNodeFromHead).isNull() },
+            { assertThat(searchedNodeFromTail).isNull() },
+        )
+    }
 }

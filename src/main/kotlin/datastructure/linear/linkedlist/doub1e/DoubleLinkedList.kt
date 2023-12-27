@@ -42,6 +42,36 @@ class DoubleLinkedList<T> {
         return stringBuilder.toString()
     }
 
+    fun searchFromHead(data: T): TwoWayNode<T>? {
+        if (head == null) {
+            return null
+        }
+
+        var node: TwoWayNode<T>? = head!!
+        while (node != null) {
+            if (node.data == data) {
+                return node
+            }
+            node = node.next
+        }
+        return null
+    }
+
+    fun searchFromTail(data: T): TwoWayNode<T>? {
+        if (tail == null) {
+            return null
+        }
+
+        var node: TwoWayNode<T>? = tail!!
+        while (node != null) {
+            if (node.data == data) {
+                return node
+            }
+            node = node.prev
+        }
+        return null
+    }
+
     companion object {
         private const val EMPTY_DATA_FORMAT = "[]"
         private const val PREFIX = "[ "
