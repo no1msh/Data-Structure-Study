@@ -8,6 +8,10 @@ class Queue<T>(private val datas: LinkedList<T> = LinkedList()) {
         return datas.joinToString(separator = INFIX, prefix = PREFIX, postfix = POSTFIX)
     }
 
+    fun enqueue(data: T) {
+        datas.add(data)
+    }
+
     companion object {
         private const val PREFIX = "<=[ "
         private const val POSTFIX = " ]=<"

@@ -20,4 +20,16 @@ class QueueTest {
         // then
         assertThat(queue.toString()).isEqualTo("<=[ 1, 2, 3 ]=<")
     }
+
+    @Test
+    fun `큐는 enqueue로 데이터를 추가할 수 있다`() {
+        // given
+        val queue = Queue<Int>()
+
+        // when
+        queue.enqueue(1)
+
+        // then
+        assertThat(queue.toString()).isEqualTo("<=[ 1 ]=<")
+    }
 }
