@@ -142,4 +142,70 @@ class DoubleLinkedListTest {
             { assertThat(searchedNodeFromTail).isNull() },
         )
     }
+
+    @Test
+    fun `더블 링크드 리스트에서 원하는 노드의 앞에 새로운 노드를 추가할 수 있다`() {
+        // given
+        val doubleLinkedList = DoubleLinkedList<Int>().apply {
+            add(1)
+            add(2)
+            add(3)
+        }
+
+        // when
+        val expect: Boolean = doubleLinkedList.addByFrontOfNode(2, 4)
+
+        // then
+        assertAll(
+            { assertThat(expect).isTrue },
+            { assertThat(doubleLinkedList.head!!.next).isEqualTo(doubleLinkedList.searchFromHead(4)) },
+            { assertThat(doubleLinkedList.head!!.next!!.prev).isEqualTo(doubleLinkedList.head) },
+            { assertThat(doubleLinkedList.toString()).isEqualTo("[ 1 <-> 4 <-> 2 <-> 3 ]") },
+        )
+    }
+
+    @Test
+    fun `원하는 노드가 헤드일 때도 정상적으로 새로운 노드를 헤드의 앞에 추가한다`() {
+        // given
+        val doubleLinkedList = DoubleLinkedList<Int>().apply {
+            add(1)
+            add(2)
+            add(3)
+        }
+
+        // when
+        val expect: Boolean = doubleLinkedList.addByFrontOfNode(1, 4)
+
+        // then
+        assertAll(
+            { assertThat(expect).isTrue },
+            { assertThat(doubleLinkedList.head!!.next).isEqualTo(doubleLinkedList.searchFromHead(1)) },
+            { assertThat(doubleLinkedList.head!!.next!!.prev).isEqualTo(doubleLinkedList.head) },
+            { assertThat(doubleLinkedList.toString()).isEqualTo("[ 4 <-> 1 <-> 2 <-> 3 ]") },
+        )
+    }
+
+    @Test
+    fun `원하는 노드가 테일일 때도 정상적으로 새로운 노드를 테일 앞에 추가한다`() {
+        // given
+        val doubleLinkedList = DoubleLinkedList<Int>().apply {
+            add(1)
+            add(2)
+            add(3)
+        }
+
+        // when
+        val expect: Boolean = doubleLinkedList.addByFrontOfNode(3, 4)
+
+        // then
+        val addedNode = doubleLinkedList.searchFromHead(4)
+
+        assertAll(
+            { assertThat(expect).isTrue },
+            { assertThat(doubleLinkedList.tail!!.prev).isEqualTo(addedNode) },
+            { assertThat(doubleLinkedList.tail!!.prev!!.next).isEqualTo(doubleLinkedList.tail) },
+            { assertThat(doubleLinkedList.tail!!.prev!!.prev!!.next).isEqualTo(addedNode) },
+            { assertThat(doubleLinkedList.toString()).isEqualTo("[ 1 <-> 2 <-> 4 <-> 3 ]") },
+        )
+    }
 }

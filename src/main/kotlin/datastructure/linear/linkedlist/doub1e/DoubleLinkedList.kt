@@ -72,6 +72,41 @@ class DoubleLinkedList<T> {
         return null
     }
 
+    fun addByFrontOfNode(existedData: T, newData: T): Boolean {
+        if (head == null) {
+            add(newData)
+            return true
+        }
+
+        if (head!!.data == existedData) {
+            val newNode = TwoWayNode(newData)
+            newNode.next = head
+            head!!.prev = newNode
+            head = newNode
+            return true
+        }
+
+        var tempNode = head
+        while (tempNode != null) {
+            if (tempNode.data == existedData) {
+                val prevNode: TwoWayNode<T> = tempNode.prev!!
+                val newNode: TwoWayNode<T> = TwoWayNode(newData)
+
+                prevNode.next = newNode
+                tempNode.prev = newNode
+
+                newNode.prev = prevNode
+                newNode.next = tempNode
+
+                if (tempNode == tail) tail = tempNode
+                return true
+            }
+            tempNode = tempNode.next
+        }
+
+        return false
+    }
+
     companion object {
         private const val EMPTY_DATA_FORMAT = "[]"
         private const val PREFIX = "[ "
