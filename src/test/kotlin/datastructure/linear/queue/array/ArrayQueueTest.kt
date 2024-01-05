@@ -56,4 +56,16 @@ class ArrayQueueTest {
             { assertThat(expectNotFull).isEqualTo(false) },
         )
     }
+
+    @Test
+    fun `ArrayQueue는 dequeue를 했을 때 가장 먼저 반환되는 값의 인덱스를 front라고 한다`() {
+        // given
+        val arrayQueue = ArrayQueue<Int>(5)
+
+        // when
+        val expectFront = arrayQueue.front
+
+        // then
+        assertThat(expectFront).isEqualTo(0)
+    }
 }

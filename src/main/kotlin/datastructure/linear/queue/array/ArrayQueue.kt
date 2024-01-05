@@ -11,11 +11,15 @@ class ArrayQueue<T>(
     val isFull: Boolean
         get() = capacity == size
 
+    var front: Int = datas.indexOfFirst { it != null }.coerceAtLeast(MINIMUM_INDEX)
+        private set
+
     override fun toString(): String {
         return datas.joinToString(separator = INFIX, prefix = PREFIX, postfix = POSTFIX)
     }
 
     companion object {
+        private const val MINIMUM_INDEX = 0
         private const val PREFIX = "["
         private const val POSTFIX = "]"
         private const val INFIX = ", "
