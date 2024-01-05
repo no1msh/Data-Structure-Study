@@ -3,6 +3,7 @@ package datastructure.linear.queue.array
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
+import org.junit.jupiter.api.assertThrows
 
 class ArrayQueueTest {
     @Test
@@ -107,5 +108,35 @@ class ArrayQueueTest {
 
         // then
         assertThat(expect).isFalse
+    }
+
+    @Test
+    fun `ArrayQueue는 enqueue를 통해 데이터를 추가할 수 있다`() {
+        // given
+        val arrayQueue = ArrayQueue<Int>(5)
+
+        // when
+        arrayQueue.enqueue(1)
+
+        // then
+        assertThat(arrayQueue.toString()).isEqualTo("[1]")
+    }
+
+    @Test
+    fun `ArrayQueue는 수용할 수 있는 데이터들을 모두 수용했다면 enqueue를 할 시 예외처리한다`() {
+        // given
+        val arrayQueue = ArrayQueue<Int>(5).apply {
+            enqueue(1)
+            enqueue(2)
+            enqueue(3)
+            enqueue(4)
+            enqueue(5)
+        }
+
+        // when
+        val error = assertThrows<IndexOutOfBoundsException> { arrayQueue.enqueue(6) }
+
+        // then
+        assertThat(error.message).isEqualTo("Queue가 수용할 수 있는 크기를 넘어서 enqueue를 할 수 없습니다.")
     }
 }
