@@ -61,7 +61,7 @@ class ArrayQueueTest {
     @Test
     fun `ArrayQueue는 dequeue를 했을 때 가장 먼저 반환되는 값의 인덱스를 front라고 한다`() {
         // given
-        val arrayQueue = ArrayQueue<Int>(5)
+        val arrayQueue = ArrayQueue<Int>(3)
 
         // when
         val expectFront = arrayQueue.front
@@ -70,7 +70,38 @@ class ArrayQueueTest {
         assertThat(expectFront).isEqualTo(0)
     }
 
-    // TODO(dequeue 중 이동하는 front 검증 필요)
+    @Test
+    fun `front는 dequeue를 할 시 뒤로 한 칸씩 이동한다`() {
+        // given
+        val arrayQueue = ArrayQueue<Int>(3)
+        arrayQueue.enqueue(1)
+
+        // when
+        arrayQueue.dequeue()
+        val actual = arrayQueue.front
+
+        // then
+        assertThat(actual).isEqualTo(1)
+    }
+
+    @Test
+    fun `front는 dequeue를 더이상 못할 때 가용크기 - 1 의 값을 가진다`() {
+        // given
+        val arrayQueue = ArrayQueue<Int>(3).apply {
+            enqueue(1)
+            enqueue(2)
+            enqueue(3)
+            dequeue()
+            dequeue()
+            dequeue()
+        }
+
+        // when
+        val actual = arrayQueue.front
+
+        // then
+        assertThat(actual).isEqualTo(2)
+    }
 
     @Test
     fun `ArrayQueue는 enqueue를 했을 때 값이 들어갈 인덱스를 rear라고 한다`() {
@@ -84,7 +115,31 @@ class ArrayQueueTest {
         assertThat(expectRear).isEqualTo(0)
     }
 
-    // TODO(dequeue 중 이동하는 rear 검증 필요)
+    @Test
+    fun `rear는 enqueue를 하면 그 횟수에 맞게 값이 증가한다`() {
+        // given
+        val queueWithTwoEnqueue = ArrayQueue<Int>(3)
+
+        // when
+        val rearWithNoEnqueue = queueWithTwoEnqueue.rear
+
+        queueWithTwoEnqueue.enqueue(1)
+        val rearWithOneEnqueue = queueWithTwoEnqueue.rear
+
+        queueWithTwoEnqueue.enqueue(2)
+        val rearWithTwoEnqueue = queueWithTwoEnqueue.rear
+
+        queueWithTwoEnqueue.enqueue(3)
+        val rearWithThreeEnqueue = queueWithTwoEnqueue.rear
+
+        // then
+        assertAll(
+            { assertThat(rearWithNoEnqueue).isEqualTo(0) },
+            { assertThat(rearWithOneEnqueue).isEqualTo(1) },
+            { assertThat(rearWithTwoEnqueue).isEqualTo(2) },
+            { assertThat(rearWithThreeEnqueue).isEqualTo(2) },
+        )
+    }
 
     @Test
     fun `ArrayQueue는 가진 데이터가 없는지를 Boolean 값으로 반환받을 수 있다`() {
