@@ -5,7 +5,7 @@ class ArrayQueue<T>(
     private val datas: Array<T> = arrayOfNulls<Any?>(capacity) as Array<T>,
 ) {
 
-    var size = datas.size
+    var size = datas.count { it != null }
         private set
 
     val isFull: Boolean
