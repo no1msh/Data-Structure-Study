@@ -68,4 +68,16 @@ class ArrayQueueTest {
         // then
         assertThat(expectFront).isEqualTo(0)
     }
+
+    @Test
+    fun `ArrayQueue는 enqueue를 했을 때 값이 들어갈 인덱스를 rear라고 한다`() {
+        // given
+        val arrayQueue = ArrayQueue<Int>(5)
+
+        // when
+        val expectRear = arrayQueue.rear
+
+        // then
+        assertThat(expectRear).isEqualTo(0)
+    }
 }

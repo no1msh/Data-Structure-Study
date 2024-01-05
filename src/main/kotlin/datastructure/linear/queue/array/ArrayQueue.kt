@@ -14,6 +14,9 @@ class ArrayQueue<T>(
     var front: Int = datas.indexOfFirst { it != null }.coerceAtLeast(MINIMUM_INDEX)
         private set
 
+    var rear: Int = datas.indexOfLast { it != null }.coerceIn(MINIMUM_INDEX..<capacity)
+        private set
+
     override fun toString(): String {
         return datas.joinToString(separator = INFIX, prefix = PREFIX, postfix = POSTFIX)
     }
