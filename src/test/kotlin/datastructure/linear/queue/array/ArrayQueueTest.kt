@@ -139,4 +139,45 @@ class ArrayQueueTest {
         // then
         assertThat(error.message).isEqualTo("Queue가 수용할 수 있는 크기를 넘어서 enqueue를 할 수 없습니다.")
     }
+
+    @Test
+    fun `ArrayQueue는 dequeue를 통해 front에 위치한 값을 반환한다`() {
+        // given
+        val arrayQueue = ArrayQueue<Int>(5)
+        arrayQueue.enqueue(1)
+
+        // when
+        val actual = arrayQueue.dequeue()
+
+        // then
+        assertThat(actual).isEqualTo(1)
+    }
+
+    @Test
+    fun `ArrayQueue는 가용 공간에 데이터가 전부 존재해도 dequeue를 할 수 있다`() {
+        // given
+        val arrayQueue = ArrayQueue<Int>(5).apply {
+            enqueue(1)
+            enqueue(2)
+            enqueue(3)
+            enqueue(4)
+            enqueue(5)
+        }
+
+        // when
+        val actual1 = arrayQueue.dequeue()
+        val actual2 = arrayQueue.dequeue()
+        val actual3 = arrayQueue.dequeue()
+        val actual4 = arrayQueue.dequeue()
+        val actual5 = arrayQueue.dequeue()
+
+        // then
+        assertAll(
+            { assertThat(actual1).isEqualTo(1) },
+            { assertThat(actual2).isEqualTo(2) },
+            { assertThat(actual3).isEqualTo(3) },
+            { assertThat(actual4).isEqualTo(4) },
+            { assertThat(actual5).isEqualTo(5) },
+        )
+    }
 }

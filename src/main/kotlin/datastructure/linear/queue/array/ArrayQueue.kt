@@ -28,8 +28,18 @@ class ArrayQueue<T>(
         if (isFull) throw IndexOutOfBoundsException("Queue가 수용할 수 있는 크기를 넘어서 enqueue를 할 수 없습니다.")
 
         datas[rear] = newData
-        rear = (rear - 1).coerceAtLeast(MINIMUM_INDEX)
+        rear = (rear + 1).coerceAtLeast(MINIMUM_INDEX)
         size++
+    }
+
+    fun dequeue(): T {
+        if (isEmpty) throw NoSuchElementException("Queue에 데이터가 존재하지 않습니다.")
+
+        val result = datas[front]
+        front = (front + 1).coerceIn(MINIMUM_INDEX..<capacity)
+        rear = (rear - 1).coerceAtLeast(MINIMUM_INDEX)
+        size--
+        return result
     }
 
     companion object {
