@@ -52,8 +52,8 @@ class ArrayQueueTest {
 
         // then
         assertAll(
-            { assertThat(expectFull).isEqualTo(true) },
-            { assertThat(expectNotFull).isEqualTo(false) },
+            { assertThat(expectFull).isTrue },
+            { assertThat(expectNotFull).isFalse },
         )
     }
 
@@ -69,6 +69,8 @@ class ArrayQueueTest {
         assertThat(expectFront).isEqualTo(0)
     }
 
+    // TODO(dequeue 중 이동하는 front 검증 필요)
+
     @Test
     fun `ArrayQueue는 enqueue를 했을 때 값이 들어갈 인덱스를 rear라고 한다`() {
         // given
@@ -80,6 +82,8 @@ class ArrayQueueTest {
         // then
         assertThat(expectRear).isEqualTo(0)
     }
+
+    // TODO(dequeue 중 이동하는 rear 검증 필요)
 
     @Test
     fun `ArrayQueue는 가진 데이터가 없는지를 Boolean 값으로 반환받을 수 있다`() {
