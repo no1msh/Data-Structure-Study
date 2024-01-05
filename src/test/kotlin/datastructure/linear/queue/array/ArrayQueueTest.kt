@@ -80,4 +80,28 @@ class ArrayQueueTest {
         // then
         assertThat(expectRear).isEqualTo(0)
     }
+
+    @Test
+    fun `ArrayQueue는 가진 데이터가 없는지를 Boolean 값으로 반환받을 수 있다`() {
+        // given
+        val arrayQueue = ArrayQueue<Int>(5)
+
+        // when
+        val expect = arrayQueue.isEmpty
+
+        // then
+        assertThat(expect).isTrue
+    }
+
+    @Test
+    fun `만일 데이터가 있다면 isEmpty는 false를 반환한다`() {
+        // given
+        val arrayQueue = ArrayQueue(5, arrayOf(1))
+
+        // when
+        val expect = arrayQueue.isEmpty
+
+        // then
+        assertThat(expect).isFalse
+    }
 }

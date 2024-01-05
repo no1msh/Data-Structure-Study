@@ -11,6 +11,9 @@ class ArrayQueue<T>(
     val isFull: Boolean
         get() = capacity == size
 
+    val isEmpty: Boolean
+        get() = size == 0
+
     var front: Int = datas.indexOfFirst { it != null }.coerceAtLeast(MINIMUM_INDEX)
         private set
 
