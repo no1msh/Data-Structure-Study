@@ -2,6 +2,7 @@ package datastructure.linear.queue.array
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 
 class ArrayQueueTest {
     @Test
@@ -25,5 +26,22 @@ class ArrayQueueTest {
 
         // then
         assertThat(expect).isEqualTo(3)
+    }
+
+    @Test
+    fun `ArrayQueue는 큐가 가득 차있는지에 따라 Boolean값을 반환 받을 수 있다`() {
+        // given
+        val fullQueue = ArrayQueue(5, arrayOf(1, 2, 3, 4, 5))
+        val notFullQueue = ArrayQueue(5, arrayOf(1, 2, 3))
+
+        // when
+        val expectFull: Boolean = fullQueue.isFull
+        val expectNotFull: Boolean = notFullQueue.isFull
+
+        // then
+        assertAll(
+            { assertThat(expectFull).isEqualTo(true) },
+            { assertThat(expectNotFull).isEqualTo(false) },
+        )
     }
 }
