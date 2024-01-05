@@ -1,9 +1,8 @@
 package datastructure.linear.queue.array
 
-class ArrayQueue<T>(
-    private val capacity: Int,
-    private val datas: Array<T> = arrayOfNulls<Any?>(capacity) as Array<T>,
-) {
+@Suppress("UNCHECKED_CAST")
+class ArrayQueue<T>(private val capacity: Int) {
+    private val datas: Array<T?> = arrayOfNulls<Any?>(capacity) as Array<T?>
 
     var size = datas.count { it != null }
         private set
@@ -39,7 +38,7 @@ class ArrayQueue<T>(
     fun dequeue(): T {
         if (isEmpty) throw NoSuchElementException("Queue에 데이터가 존재하지 않습니다.")
 
-        val result = datas[front]
+        val result: T = datas[front] ?: throw NullPointerException("front가 null을 참조하고 있습니다.")
         front++
         rear--
         size--

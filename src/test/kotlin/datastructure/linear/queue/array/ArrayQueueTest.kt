@@ -11,7 +11,11 @@ class ArrayQueueTest {
         // given
 
         // when
-        val arrayQueue = ArrayQueue(5, arrayOf(1, 2, 3))
+        val arrayQueue = ArrayQueue<Int>(5).apply {
+            enqueue(1)
+            enqueue(2)
+            enqueue(3)
+        }
 
         // then
         assertThat(arrayQueue.toString()).isEqualTo("[1, 2, 3]")
@@ -20,13 +24,17 @@ class ArrayQueueTest {
     @Test
     fun `ArrayQueue는 자신이 가진 원소의 개수를 반환할 수 있다`() {
         // given
-        val arrayQueue = ArrayQueue(5, arrayOf(1, 2, 3))
+        val arrayQueue = ArrayQueue<Int>(5).apply {
+            enqueue(1)
+            enqueue(2)
+            enqueue(3)
+        }
 
         // when
-        val expect = arrayQueue.size
+        val actual = arrayQueue.size
 
         // then
-        assertThat(expect).isEqualTo(3)
+        assertThat(actual).isEqualTo(3)
     }
 
     @Test
@@ -35,26 +43,33 @@ class ArrayQueueTest {
         val arrayQueue = ArrayQueue<Int>(5)
 
         // when
-        val expect = arrayQueue.size
+        val actual = arrayQueue.size
 
         // then
-        assertThat(0).isEqualTo(expect)
+        assertThat(0).isEqualTo(actual)
     }
 
     @Test
     fun `ArrayQueue는 큐가 가득 차있는지에 따라 Boolean값을 반환 받을 수 있다`() {
         // given
-        val fullQueue = ArrayQueue(5, arrayOf(1, 2, 3, 4, 5))
-        val notFullQueue = ArrayQueue(5, arrayOf(1, 2, 3))
+        val fullQueue = ArrayQueue<Int>(3).apply {
+            enqueue(1)
+            enqueue(2)
+            enqueue(3)
+        }
+        val notFullQueue = ArrayQueue<Int>(3).apply {
+            enqueue(1)
+            enqueue(2)
+        }
 
         // when
-        val expectFull: Boolean = fullQueue.isFull
-        val expectNotFull: Boolean = notFullQueue.isFull
+        val actualFull: Boolean = fullQueue.isFull
+        val actualNotFull: Boolean = notFullQueue.isFull
 
         // then
         assertAll(
-            { assertThat(expectFull).isTrue },
-            { assertThat(expectNotFull).isFalse },
+            { assertThat(actualFull).isTrue },
+            { assertThat(actualNotFull).isFalse },
         )
     }
 
@@ -64,10 +79,10 @@ class ArrayQueueTest {
         val arrayQueue = ArrayQueue<Int>(3)
 
         // when
-        val expectFront = arrayQueue.front
+        val actualFront = arrayQueue.front
 
         // then
-        assertThat(expectFront).isEqualTo(0)
+        assertThat(actualFront).isEqualTo(0)
     }
 
     @Test
@@ -106,13 +121,13 @@ class ArrayQueueTest {
     @Test
     fun `ArrayQueue는 enqueue를 했을 때 값이 들어갈 인덱스를 rear라고 한다`() {
         // given
-        val arrayQueue = ArrayQueue<Int>(5)
+        val arrayQueue = ArrayQueue<Int>(3)
 
         // when
-        val expectRear = arrayQueue.rear
+        val actualRear = arrayQueue.rear
 
         // then
-        assertThat(expectRear).isEqualTo(0)
+        assertThat(actualRear).isEqualTo(0)
     }
 
     @Test
@@ -156,19 +171,20 @@ class ArrayQueueTest {
     @Test
     fun `만일 데이터가 있다면 isEmpty는 false를 반환한다`() {
         // given
-        val arrayQueue = ArrayQueue(5, arrayOf(1))
+        val arrayQueue = ArrayQueue<Int>(3)
+        arrayQueue.enqueue(1)
 
         // when
-        val expect = arrayQueue.isEmpty
+        val actual = arrayQueue.isEmpty
 
         // then
-        assertThat(expect).isFalse
+        assertThat(actual).isFalse
     }
 
     @Test
     fun `ArrayQueue는 enqueue를 통해 데이터를 추가할 수 있다`() {
         // given
-        val arrayQueue = ArrayQueue<Int>(5)
+        val arrayQueue = ArrayQueue<Int>(3)
 
         // when
         arrayQueue.enqueue(1)
@@ -180,19 +196,17 @@ class ArrayQueueTest {
     @Test
     fun `ArrayQueue는 수용할 수 있는 데이터들을 모두 수용했다면 enqueue를 할 시 예외처리한다`() {
         // given
-        val arrayQueue = ArrayQueue<Int>(5).apply {
+        val arrayQueue = ArrayQueue<Int>(3).apply {
             enqueue(1)
             enqueue(2)
             enqueue(3)
-            enqueue(4)
-            enqueue(5)
         }
 
         // when
-        val error = assertThrows<IndexOutOfBoundsException> { arrayQueue.enqueue(6) }
+        val exception = assertThrows<IndexOutOfBoundsException> { arrayQueue.enqueue(4) }
 
         // then
-        assertThat(error.message).isEqualTo("Queue가 수용할 수 있는 크기를 넘어서 enqueue를 할 수 없습니다.")
+        assertThat(exception.message).isEqualTo("Queue가 수용할 수 있는 크기를 넘어서 enqueue를 할 수 없습니다.")
     }
 
     @Test
@@ -211,28 +225,22 @@ class ArrayQueueTest {
     @Test
     fun `ArrayQueue는 가용 공간에 데이터가 전부 존재해도 dequeue를 할 수 있다`() {
         // given
-        val arrayQueue = ArrayQueue<Int>(5).apply {
+        val arrayQueue = ArrayQueue<Int>(3).apply {
             enqueue(1)
             enqueue(2)
             enqueue(3)
-            enqueue(4)
-            enqueue(5)
         }
 
         // when
         val actual1 = arrayQueue.dequeue()
         val actual2 = arrayQueue.dequeue()
         val actual3 = arrayQueue.dequeue()
-        val actual4 = arrayQueue.dequeue()
-        val actual5 = arrayQueue.dequeue()
 
         // then
         assertAll(
             { assertThat(actual1).isEqualTo(1) },
             { assertThat(actual2).isEqualTo(2) },
             { assertThat(actual3).isEqualTo(3) },
-            { assertThat(actual4).isEqualTo(4) },
-            { assertThat(actual5).isEqualTo(5) },
         )
     }
 }
