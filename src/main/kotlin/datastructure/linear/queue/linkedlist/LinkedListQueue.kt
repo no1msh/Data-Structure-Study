@@ -16,4 +16,11 @@ class LinkedListQueue<T>(private val datas: SingleLinkedList<T> = SingleLinkedLi
         datas.add(newNode)
         rear = newNode
     }
+
+    fun dequeue(): T {
+        val result = front!!.data
+        datas.remove(result)
+
+        return result
+    }
 }

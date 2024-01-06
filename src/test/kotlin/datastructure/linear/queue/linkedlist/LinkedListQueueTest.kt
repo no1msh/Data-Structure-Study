@@ -2,6 +2,7 @@ package datastructure.linear.queue.linkedlist
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 
 class LinkedListQueueTest {
     @Test
@@ -41,5 +42,24 @@ class LinkedListQueueTest {
 
         // then
         assertThat(actual).isEqualTo("[ 1 -> 2 ]")
+    }
+
+    @Test
+    fun `LinkedListQueue는 dequeue를 통해 데이터를 반환 받을 수 있다`() {
+        // given
+        val linkedListQueue = LinkedListQueue<Int>().apply {
+            enqueue(1)
+            enqueue(2)
+        }
+
+        // when
+        val actual1 = linkedListQueue.dequeue()
+        val actual2 = linkedListQueue.dequeue()
+
+        // then
+        assertAll(
+            { assertThat(actual1).isEqualTo(1) },
+            { assertThat(actual2).isEqualTo(2) },
+        )
     }
 }
