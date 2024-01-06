@@ -230,7 +230,6 @@ class SingleLinkedListTest {
 
         // then
         assertThat(singleLinkedList.searchByData(node2.data)?.next).isNull()
-        print(singleLinkedList)
     }
 
     @Test
