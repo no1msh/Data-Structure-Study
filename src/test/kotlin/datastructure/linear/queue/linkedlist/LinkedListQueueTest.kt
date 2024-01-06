@@ -62,4 +62,51 @@ class LinkedListQueueTest {
             { assertThat(actual2).isEqualTo(2) },
         )
     }
+
+    @Test
+    fun `LinkedListQueue는 dequeue를 할 노드를 가리키는 front를 가지고 있다`() {
+        // given
+        val linkedListQueue = LinkedListQueue<Int>().apply {
+            enqueue(1)
+            enqueue(2)
+        }
+
+        // when
+        val actualFrontNoDequeue = linkedListQueue.front
+
+        linkedListQueue.dequeue()
+        val actualFrontOneDequeue = linkedListQueue.front
+
+        linkedListQueue.dequeue()
+        val actualFrontTwoDequeue = linkedListQueue.front
+
+        // then
+        assertAll(
+            { assertThat(actualFrontNoDequeue!!.data).isEqualTo(1) },
+            { assertThat(actualFrontOneDequeue!!.data).isEqualTo(2) },
+            { assertThat(actualFrontTwoDequeue).isNull() },
+        )
+    }
+
+    @Test
+    fun `LinkedListQueue는 enqueue를 할 노드를 가리키는 rear를 가지고 있다`() {
+        // given
+        val linkedListQueue = LinkedListQueue<Int>()
+
+        // when
+        val actualRearWithNoEnqueue = linkedListQueue.rear
+
+        linkedListQueue.enqueue(1)
+        val actualRearWithOneEnqueue = linkedListQueue.rear
+
+        linkedListQueue.enqueue(2)
+        val actualRearWithTwoEnqueue = linkedListQueue.rear
+
+        // then
+        assertAll(
+            { assertThat(actualRearWithNoEnqueue).isNull() },
+            { assertThat(actualRearWithOneEnqueue).isEqualTo(linkedListQueue.front) },
+            { assertThat(actualRearWithTwoEnqueue).isEqualTo(linkedListQueue.front!!.next) },
+        )
+    }
 }
