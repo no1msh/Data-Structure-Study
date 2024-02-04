@@ -1,9 +1,9 @@
 package datastructure.linear.queue.linkedlist
 
 import datastructure.linear.linkedlist.single.OneWayNode
-import datastructure.linear.linkedlist.single.SingleLinkedList
+import datastructure.linear.linkedlist.single.SinglyLinkedList
 
-class LinkedListQueue<T>(private val datas: SingleLinkedList<T> = SingleLinkedList()) {
+class LinkedListQueue<T>(private val datas: SinglyLinkedList<T> = SinglyLinkedList()) {
     val front: OneWayNode<T>? get() = datas.head
     var rear: OneWayNode<T>? = null
 
@@ -12,9 +12,9 @@ class LinkedListQueue<T>(private val datas: SingleLinkedList<T> = SingleLinkedLi
     }
 
     fun enqueue(newData: T) {
-        val newNode = OneWayNode(newData)
-        datas.add(newNode)
-        rear = newNode
+
+        datas.add(newData)
+        rear = datas.tail
     }
 
     fun dequeue(): T {
