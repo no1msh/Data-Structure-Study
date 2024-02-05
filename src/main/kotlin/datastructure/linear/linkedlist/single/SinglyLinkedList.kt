@@ -6,20 +6,30 @@ class SinglyLinkedList<T> {
     var tail: OneWayNode<T>? = null
         private set
 
+    var size = 0
+        private set(value) {
+            value.coerceAtLeast(0)
+            field = value
+        }
+
+    val isEmpty: Boolean get() = size == 0
+
     fun add(newData: T) {
         if (head == null) {
             head = OneWayNode(newData)
             tail = head
+            size++
             return
         }
 
         val newNode = OneWayNode(newData)
         tail!!.next = newNode
         tail = newNode
+        size++
     }
 
     fun add(existedData: T, newData: T) {
-        if (head == null) return
+        if (head == null) return throw NoSuchElementException(NOT_EXISTED_DATA)
 
         val searchedNode: OneWayNode<T>? = searchNodeByData(existedData)
 
@@ -32,12 +42,14 @@ class SinglyLinkedList<T> {
 
         if (searchedNode.next == null) {
             searchedNode.next = newNode
+            size++
             return
         }
 
         val tempNode = searchedNode.next
         searchedNode.next = newNode
         newNode.next = tempNode
+        size++
     }
 
     private fun searchNodeByData(targetData: T): OneWayNode<T>? {
@@ -58,6 +70,7 @@ class SinglyLinkedList<T> {
 
         if (head!!.data == targetData) {
             head = head!!.next
+            size--
             return
         }
 
@@ -69,6 +82,7 @@ class SinglyLinkedList<T> {
             }
             node = node.next
         }
+        size--
     }
 
     override fun toString(): String {
@@ -94,18 +108,28 @@ class SinglyLinkedList<T> {
 
         val nextNode = head!!.next
         head = nextNode
+        size--
     }
 
     fun removeLast() {
         if (tail == null) return
 
         var tempNode = head
+
+        if (tempNode == tail) {
+            head = null
+            tail = null
+            size--
+            return
+        }
+
         while (tempNode!!.next != tail) {
             tempNode = tempNode.next
         }
 
         tail = tempNode
         tail!!.next = null
+        size--
     }
 
     companion object {
@@ -114,5 +138,6 @@ class SinglyLinkedList<T> {
         private const val POSTFIX = " ]"
         private const val INFIX = " -> "
         private const val INFIX_SIZE = 3
+        private const val NOT_EXISTED_DATA = "추출할 데이터가 존재하지 않습니다."
     }
 }

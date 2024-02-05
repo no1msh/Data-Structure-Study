@@ -2,6 +2,7 @@ package datastructure.linear.linkedlist.single
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.assertDoesNotThrow
 
 class SinglyLinkedListTest {
@@ -209,5 +210,44 @@ class SinglyLinkedListTest {
 
         // then
         assertDoesNotThrow { singlyLinkedList.removeLast() }
+    }
+
+    @Test
+    fun `단일 연결 리스트의 사이즈를 측정할 수 있다`() {
+        // given
+        val singlyLinkedList = SinglyLinkedList<Int>()
+
+        // when
+        singlyLinkedList.add(1)
+        singlyLinkedList.add(2)
+        val actual1 = singlyLinkedList.size
+        singlyLinkedList.removeLast()
+        val actual2 = singlyLinkedList.size
+        singlyLinkedList.removeFirst()
+        val actual3 = singlyLinkedList.size
+
+        // then
+        assertAll(
+            { assertThat(actual1).isEqualTo(2) },
+            { assertThat(actual2).isEqualTo(1) },
+            { assertThat(actual3).isEqualTo(0) },
+        )
+    }
+
+    @Test
+    fun `단일 연결리스트가 비었는지 확인할 수 있다`() {
+        // given
+        val singlyLinkedList = SinglyLinkedList<Int>()
+
+        // when
+        val actual1 = singlyLinkedList.isEmpty
+        singlyLinkedList.add(1)
+        val actual2 = singlyLinkedList.isEmpty
+
+        // then
+        assertAll(
+            { assertThat(actual1).isTrue() },
+            { assertThat(actual2).isFalse() },
+        )
     }
 }
